@@ -10,10 +10,19 @@ class Queue {
   add(element) {
     this.#list.push(element);
   }
+  enqueue(element) {
+    this.add(element);
+  }
   pop() {
     const value = this.#list[0];
     this.#list.shift();
     return value;
+  }
+  dequeue() {
+    return this.pop();
+  }
+  front() {
+   return this.peek();
   }
   peek() {
     return this.#list[0];
