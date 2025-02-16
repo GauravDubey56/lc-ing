@@ -11,7 +11,7 @@ class Reader {
       input: process.stdin,
       output: process.stdout,
     });
-    this.input = () => new Promise((resolve) => this.reader.question("", resolve));
+    this.input = (prompt = "") => new Promise((resolve) => this.reader.question(prompt, resolve));
   }
 }
 
