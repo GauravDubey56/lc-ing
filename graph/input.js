@@ -6,15 +6,24 @@ const readEdge = (u, v, adjList) => {
   }
   adjList[u].push(v);
 };
+const validateEdge = (u, v, n) => {
+  if (u < 1|| u > n || v < 1 || v > n) {
+    throw new Error("Invalid edge");
+  }
+};
 const readGraph = async () => {
   const reader = new Reader();
+
   const readLine = reader.input;
+  const m = parseInt(await readLine());
   const n = parseInt(await readLine());
+
   const graph = [];
   const adjList = {};
   const directed = (await readLine("Directed? (y/n): ")) === "y";
   for (let i = 0; i < n; i++) {
     const [u, v] = (await readLine()).split(" ").map(Number);
+    validateEdge(u, v, m);
     readEdge(u, v, adjList);
     if (!directed) {
       readEdge(v, u, adjList);
@@ -25,6 +34,7 @@ const readGraph = async () => {
   return {
     edges: graph,
     adjList,
+    n,
   };
 };
 const adjMatrixToList = (matrix) => {
@@ -37,7 +47,7 @@ const adjMatrixToList = (matrix) => {
     }
   }
   return adjList;
-}
+};
 
 module.exports.readGraph = readGraph;
 module.exports.adjMatrixToList = adjMatrixToList;
